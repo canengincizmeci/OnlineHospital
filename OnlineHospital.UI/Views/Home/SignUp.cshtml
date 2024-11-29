@@ -1,0 +1,178 @@
+﻿@using CommonLibrary.ViewModels
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/_LayoutValidator.cshtml";
+}
+
+
+
+@model SignUpViewModel
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial");
+}
+
+
+<style>
+    body {
+        background: url('../images/admin/adminloginbackground.jpg');
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-size: cover;
+        background-position: center;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .container {
+        width: 420px;
+        background: transparent;
+        color: #fff;
+        border-radius: 10px;
+        padding: 30px 40px;
+        border: 2px solid rgba(255, 255, 255, .2);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    }
+
+        .container h1 {
+            font-size: 36px;
+            text-align: center;
+        }
+
+        .container .input-box {
+            width: 100%;
+            height: 50px;
+            position: relative;
+            margin: 30px 0;
+        }
+
+    .input-box input {
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        border: none;
+        outline: none;
+        border: 2px solid rgba(255, 255, 255, .2);
+        border-radius: 40px;
+        font-size: 16px;
+        color: #fff;
+        padding: 20px 45px 20px 20px;
+    }
+
+        .input-box input::placeholder {
+            color: #fff;
+        }
+
+    .input-box i {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+    }
+
+
+
+
+    .container .btn {
+        width: 100%;
+        height: 45px;
+        background: #fff;
+        border: none;
+        outline: none;
+        border-radius: 40px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .container .change-password {
+        font-size: 14.5px;
+        text-align: center;
+        margin: 20px 0 15px;
+    }
+
+    .change-password p a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        .change-password p a:hover {
+            text-decoration: underline;
+        }
+</style>
+
+
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
+@if (TempData["SuccessMessage"] is not null)
+{
+    <div class="alert alert-info" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+<div asp-validation-summary=ModelOnly class="alert alert-info" role="alert">
+</div>
+
+<div class="container">
+    <form asp-controller="Home" asp-action="SignUp" method="post">
+
+        <h1>Kullanıcı Kayıt</h1>
+        <div class="input-box">
+            <input asp-for="UserName" placeholder="Kullanıcı adınızı giriniz" />
+            <i class='bx bxs-lock-alt'></i>
+            <span class="text-danger" asp-validation-for="UserName"></span>
+        </div>
+
+        <div class="input-box">
+            <input asp-for="UserEmail" placeholder="Emailinizi giriniz" />
+            <i class='bx bxs-lock-alt'></i>
+            <span class="text-danger" asp-validation-for="UserEmail"></span>
+        </div>
+
+
+        <div class="input-box">
+            <input asp-for="Password" placeholder="Şifrenizi giriniz" />
+            <i class='bx bxs-lock-alt'></i>
+            <span class="text-danger" asp-validation-for="Password"></span>
+        </div>
+
+        <div class="input-box">
+            <input asp-for="PasswordConfirm" placeholder="Şifrenizi giriniz" />
+            <i class='bx bxs-lock-alt'></i>
+            <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
+        </div>
+
+
+
+        <button type="submit" class="btn">Giriş Yap</button>
+        <div class="change-password">
+
+
+            <p>Kayıtlıysanız giriş tıklayınız</p>
+
+            <a asp-action="Login" asp-controller="Home">Tıklayınız</a>
+
+
+
+
+        </div>
+        @if (TempData["SuccessMessage"] is not null)
+        {
+            <div class="alert alert-info" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+    </form>
+
+</div>

@@ -1,0 +1,5 @@
+# appsettings.json dosyasını yoksay
+appsettings.json
+
+# Diğer geliştirme ortamı dosyalarını yoksay
+appsettings.Development.json
