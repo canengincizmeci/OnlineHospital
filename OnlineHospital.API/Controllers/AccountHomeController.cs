@@ -90,7 +90,7 @@ namespace OnlineHospital.API.Controllers
 
             var roles = await _userManager.GetRolesAsync(user);
 
-           
+
 
             string url = FindIndexUrl(roles.ToList());
             if (url == "role bulunamadı")
@@ -128,51 +128,22 @@ namespace OnlineHospital.API.Controllers
         {
             if (roles.Contains("Admin"))
             {
-                return "/Admin/AdminIndex";
+                return "Admin/Admin/AdminIndex";
             }
             if (roles.Contains("Doctor"))
             {
-                return "/Doctor/DoctorIndex";
+                return "Doctor/Doctor/DoctorIndex";
             }
             if (roles.Contains("Patient"))
             {
-                return "/Patient/PatientIndex";
+                return "Patient/Patient/PatientIndex";
             }
             if (roles.Contains("PatientRelationsWorker"))
             {
-                return "/Worker/PatientRelationsWorkerIndex";
+                return "PatientRelationsWorker/Worker/PatientRelationsWorkerIndex";
             }
             return "role bulunamadı";
         }
-
-        //private string FindIndexUrl(List<string> roles)
-        //{
-
-        //    if (roles.Contains("Admin"))
-        //    {
-        //        return "AdminIndex Admin Admin";
-        //    }
-        //    if (roles.Contains("Doctor"))
-        //    {
-        //        return "DoctorIndex Doctor Doctor";
-        //    }
-        //    if (roles.Contains("Patient"))
-        //    {
-        //        return "PatientIndex Patinet Patinet";
-        //    }
-        //    if (roles.Contains("PatientRelationsWorker"))
-        //    {
-        //        return "WorkerIndex Worker PatientRelationsWorker";
-        //    }
-        //    return "role bulunamadı";
-        //}
-
-
-
-
-
-
-
 
     }
 }

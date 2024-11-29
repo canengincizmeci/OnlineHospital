@@ -62,17 +62,17 @@ namespace OnlineHospital.UI.Controllers
             if (result != null && result.ContainsKey("redirectUrl"))
             {
                 var redirectUrl = result["redirectUrl"];
-                var urlParts = redirectUrl.Split('/');  // URL'yi "/" ile bölüyoruz
+                var urlParts = redirectUrl.Split('/'); 
 
                 if (urlParts.Length >= 2)
                 {
-                    var controller = urlParts[1];  // "Admin" kýsmý
-                    var action = urlParts[2];      // "AdminIndex" kýsmý
+                    var controller = urlParts[1];  
+                    var action = urlParts[2];      
 
-                    // Eðer URL'de area da varsa, bunu da parametre olarak ekleyebilirsiniz.
+                    
                     if (urlParts.Length >= 3)
                     {
-                        var area = urlParts.Length > 3 ? urlParts[3] : null;
+                        var area = urlParts[0];
                         return RedirectToAction(action, controller, new { area = area });
                     }
                     return RedirectToAction(action, controller);
