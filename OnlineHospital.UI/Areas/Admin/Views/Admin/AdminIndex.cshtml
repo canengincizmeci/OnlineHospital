@@ -4,5 +4,128 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>AdminIndex</h1>
+<style>
+
+    .anaDiv {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background-color: #eae2f8; /* Aynı açık lavanta rengi */
+        min-height: 70vh;
+    }
+
+    .ayiriciDiv {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+    }
+
+    .icDiv {
+        border: solid 1px rgba(41, 26, 65, 0.1);
+        border-radius: 8px;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        padding: 20px;
+        text-align: center;
+        flex: 1;
+        min-width: 200px;
+        max-width: 300px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .icDiv:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .icDiv h2 {
+            color: rgba(41, 26, 65, 1);
+        }
+
+        .icDiv p {
+            color: #555;
+        }
+
+    a {
+        text-decoration: none;
+    }
+
+</style>
+
+
+
+<div class="anaDiv">
+    <div class="ayiriciDiv">
+        <div class="icDiv">
+            <a href="@Url.Action("Index","Mesaj")">
+
+                <h2>Mesajlar ()</h2>
+                <p>Ve mesaj işlemlerini <br> burdan yönetebilirsin</p>
+            </a>
+        </div>
+        <div class="icDiv">
+            <a href="@Url.Action("Index","Sikayet")">
+                <h2>Şikayetler ()</h2>
+                <p>Gelen Şikayetleri burdan <br> görebilir ve gerekli işlemleri <br> yapabilirsin</p>
+            </a>
+
+        </div>
+        <div class="icDiv">
+            <a href="@Url.Action("Index","Talep")">
+                <h2>Talepler ()</h2>
+                <p>Gelen talepleri burdan <br> görebilir ve geri dönüş <br> yapabilirsin</p>
+            </a>
+        </div>
+        <div class="icDiv">
+            <a href="@Url.Action("Index","Kategori")">
+                <h2>Kategoriler</h2>
+                <p>Kategori ekleme,silme ve  <br> güncelleme yapabilirisin</p>
+            </a>
+        </div>
+        <div class="icDiv">
+            <a href="@Url.Action("Index","Urun")">
+                <h2>Ürün Yönetimi</h2>
+                <p>Gelen talepleri burdan <br> görebilir ve geri dönüş <br> yapabilirsin</p>
+            </a>
+        </div>
+        <div class="icDiv">
+            <a href="@Url.Action("Index","Firma")">
+                <h2>Firma Başvuruları ()</h2>
+                <p>Firma işlemlerini burdan <br> yönetebilirsin</p>
+            </a>
+        </div>
+        <div class="icDiv">
+            <a href="@Url.Action("Index","KargoFirma")">
+                <h2>Kargo Firma Yönetimi </h2>
+                <p>Kargo firmalarını <br> yönetmek için tıklayınız</p>
+            </a>
+        </div>
+    </div>
+    <div class="ayiriciDiv">
+
+        <div class="icDiv">
+            <a href="@Url.Action("FirmaOneriler","Firma")">
+                <h2>Firmalardan gelen <br> Öneriler</h2>
+                <p>Ve diğer kargo <br> firma işlemleri</p>
+            </a>
+        </div>
+        <div class="icDiv">
+            <a href="@Url.Action("Index","Kullanici")">
+                <h2>Kullanıcı Yönetimi</h2>
+                <p>Önerileri okumak için <br> tıklayınız</p>
+            </a>
+        </div>
+        <div class="icDiv">
+            <a href="@Url.Action("Index","TeknikEleman")">
+                <h2>Teknik Eleman <br> Başvuruları</h2>
+                <p>Ve diğer teknik eleman <br> işlemleri</p>
+            </a>
+        </div>
+    </div>
+</div>
 
