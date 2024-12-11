@@ -35,7 +35,26 @@ namespace OnlineHospital.API.Controllers.Admin
 
             return Ok(patients);
         }
+        [HttpPost("DeletePatient")]
+        public async Task<IActionResult> DeletePatient([FromBody] string patientId)
+        {
+            if (patientId is null)
+            {
+                return BadRequest();
 
+            }
+            var user = await _userManager.FindByIdAsync(patientId);
+            if (user is null)
+            {
+                return BadRequest();
+            }
+            user.ActivityStatus = false;
+            var deletedUser = await _context.Patients.FindAsync(user.Id);
+            deletedUser!.ActivityStatus = false;
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
 
     }
 }

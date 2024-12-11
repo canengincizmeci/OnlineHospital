@@ -5,15 +5,81 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<script>
+    $(document).ready(function () {
+        $(".deletePatient").click(function (e) {
+            e.preventDefault();
+
+            var userId = $(this).data("user-id");
+            var url = $(this).attr("href");
+
+            Swal.fire({
+                icon: "warning",
+                title: "Kullanıcıyı silmek istediğinizden emin misiniz?",
+                text: "Bu işlem geri alınamaz.",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet',
+                cancelButtonText: "Vazgeç"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: userId,
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire(
+                                    'Kullanıcı Silindi',
+                                    'İşlem başarıyla tamamlandı.',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Hata',
+                                    response.message || 'Kullanıcı silinirken bir hata oluştu.',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function () {
+                            Swal.fire(
+                                'Hata',
+                                'Kullanıcı silinemedi.',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
 <table>
     <thead>
         <tr>
-
+            <th>Üye Ad</th>
+            <th>Yaş</th>
+            <th>Sil</th>
         </tr>
     </thead>
     <tbody>
-        
-
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>@item.BirthDate</td>
+                <td><a asp-action="DeletePatient" asp-controller="PatientManagement" asp-area="Admin" data-user-id="@item.UserId" class="btn btn-danger deletePatient">Sil</a></td>
+            </tr>
+        }
     </tbody>
 </table>
 

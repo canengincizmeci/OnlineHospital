@@ -18,12 +18,13 @@ namespace OnlineHospital.DB.Model
         [Required]
         [ForeignKey("AppUser")]
         public string UserId { get; set; }
-
-
+        [Required]
+        public string PatientName { get; set; }
         public AppUser User { get; set; }
         [Required]
         public bool ActivityStatus { get; set; }
         public bool IsProfileUpdated { get; set; }
+
 
 
 

@@ -9,7 +9,7 @@ namespace OnlineHospital.API.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
-   
+
 
 
     public class API_RoleController : Controller
@@ -108,7 +108,8 @@ namespace OnlineHospital.API.Controllers.Admin
                         ActivityStatus = true,
                         BirthYear = null,
                         IsProfileUpdated = false,
-                        UserId = user.Id
+                        UserId = user.Id,
+                        PatientName = user.UserName!
                     });
                 }
                 else if (request.RoleName == "PatientRelationsWorker")

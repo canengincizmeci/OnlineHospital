@@ -9,7 +9,8 @@ namespace OnlineHospital.DB.Model
 {
     public class AppUser : IdentityUser
     {
-        
+
         public bool HasRole { get; set; } = false;
+        public bool ActivityStatus { get; set; } = true;
     }
 }
