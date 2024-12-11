@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "AddRole";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div>
+    <form asp-action="AddRole" asp-controller="Role" asp-area="Admin" method="post">
+        <label>
+            Role Name:
+            <input type="text" name="roleName" required />
+        </label>
+        <button type="submit">Ekle</button>
+    </form>
+</div>

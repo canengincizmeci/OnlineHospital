@@ -1,0 +1,97 @@
+﻿@using CommonLibrary.ViewModels
+@model List<UsersWithoutRoleViewModel>
+@{
+    ViewData["Title"] = "UsersListWithoutRole";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $(".roleBtn").click(function (e) {
+            e.preventDefault();
+            var userId = $(this).data("user-id");
+            var roleName = $(this).data("role-name");
+            var url = $(this).attr("href");
+            const requestData = {
+
+                userId: userId,
+                roleName: roleName
+            }
+            console.log(url);
+            console.log(requestData.userId);
+            console.log(requestData.roleName);
+            Swal.fire({
+                icon: "warning",
+                title: "Kullanıcıya bu rölü vermek istedğinizden emin misiniz?",
+                text: "Rol ataması yapılacak",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet',
+                cancelButtonText: "Vazgeç"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+
+                        contentType: "application/json",
+                        data: JSON.stringify({ userId, roleName }),
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire(
+                                    'Rol atandı',
+                                    'İşlem başarıyla tamamlandı',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                Swal.fire(
+                                    'Hata',
+                                    response.message || 'Rol atanırken bir hata oluştu',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function () {
+                            Swal.fire(
+                                'Hata',
+                                'Rol atanamdı',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+
+</script>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Kullanıcı Adı</th>
+            <th>Roller</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.userId</td>
+                <td>@item.userName</td>
+                @for (int i = 0; i < item.Roles!.Count; i++)
+                {
+                    <td><a asp-action="AssignRoleToUser" asp-controller="Role" asp-area="Admin" data-user-id="@item.userId" data-role-name="@item.Roles[i]" class="btn btn-danger roleBtn">@item.Roles[i]</a></td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

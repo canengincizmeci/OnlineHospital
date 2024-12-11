@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "AdminIndex";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -62,70 +61,86 @@
 <div class="anaDiv">
     <div class="ayiriciDiv">
         <div class="icDiv">
-            <a href="@Url.Action("Index","Mesaj")">
-
-                <h2>Mesajlar ()</h2>
-                <p>Ve mesaj işlemlerini <br> burdan yönetebilirsin</p>
+            <a href="/Admin/Role/UsersListWithoutRole">
+                <h2>Rol Atama</h2>
+                <p>Rol ataması bekleyen kullanıcılar</p>
             </a>
         </div>
-        <div class="icDiv">
-            <a href="@Url.Action("Index","Sikayet")">
-                <h2>Şikayetler ()</h2>
-                <p>Gelen Şikayetleri burdan <br> görebilir ve gerekli işlemleri <br> yapabilirsin</p>
-            </a>
-
-        </div>
-        <div class="icDiv">
-            <a href="@Url.Action("Index","Talep")">
-                <h2>Talepler ()</h2>
-                <p>Gelen talepleri burdan <br> görebilir ve geri dönüş <br> yapabilirsin</p>
-            </a>
-        </div>
-        <div class="icDiv">
-            <a href="@Url.Action("Index","Kategori")">
-                <h2>Kategoriler</h2>
-                <p>Kategori ekleme,silme ve  <br> güncelleme yapabilirisin</p>
-            </a>
-        </div>
-        <div class="icDiv">
-            <a href="@Url.Action("Index","Urun")">
-                <h2>Ürün Yönetimi</h2>
-                <p>Gelen talepleri burdan <br> görebilir ve geri dönüş <br> yapabilirsin</p>
-            </a>
-        </div>
-        <div class="icDiv">
-            <a href="@Url.Action("Index","Firma")">
-                <h2>Firma Başvuruları ()</h2>
-                <p>Firma işlemlerini burdan <br> yönetebilirsin</p>
-            </a>
-        </div>
-        <div class="icDiv">
-            <a href="@Url.Action("Index","KargoFirma")">
-                <h2>Kargo Firma Yönetimi </h2>
-                <p>Kargo firmalarını <br> yönetmek için tıklayınız</p>
-            </a>
-        </div>
-    </div>
-    <div class="ayiriciDiv">
 
         <div class="icDiv">
-            <a href="@Url.Action("FirmaOneriler","Firma")">
-                <h2>Firmalardan gelen <br> Öneriler</h2>
-                <p>Ve diğer kargo <br> firma işlemleri</p>
+            <a asp-area="Admin" asp-controller="Role" asp-action="AddRole">
+                <h2>Rol Ekleme</h2>
+                <p>Rol ekleme yapabilirsin</p>
             </a>
+        </div>
+
+          <div class="icDiv">
+            <a asp-area="Admin" asp-controller="Appo" asp-action="AddRole">
+                <h2>Rol Ekleme</h2>
+                <p>Rol ekleme yapabilirsin</p>
+            </a>
+        </div>
+
+
+
+        @*  <div class="icDiv">
+        <a asp-action="UserListWithoutRoleAsync" asp-controller="Role" asp-area="Admin">
+        <h2>Şikayetler ()</h2>
+        <p>Gelen Şikayetleri burdan <br> görebilir ve gerekli işlemleri <br> yapabilirsin</p>
+        </a>
+
         </div>
         <div class="icDiv">
-            <a href="@Url.Action("Index","Kullanici")">
-                <h2>Kullanıcı Yönetimi</h2>
-                <p>Önerileri okumak için <br> tıklayınız</p>
-            </a>
+        <a href="@Url.Action("Index","Talep")">
+        <h2>Talepler ()</h2>
+        <p>Gelen talepleri burdan <br> görebilir ve geri dönüş <br> yapabilirsin</p>
+        </a>
         </div>
         <div class="icDiv">
-            <a href="@Url.Action("Index","TeknikEleman")">
-                <h2>Teknik Eleman <br> Başvuruları</h2>
-                <p>Ve diğer teknik eleman <br> işlemleri</p>
-            </a>
+        <a href="@Url.Action("Index","Kategori")">
+        <h2>Kategoriler</h2>
+        <p>Kategori ekleme,silme ve  <br> güncelleme yapabilirisin</p>
+        </a>
         </div>
+        <div class="icDiv">
+        <a href="@Url.Action("Index","Urun")">
+        <h2>Ürün Yönetimi</h2>
+        <p>Gelen talepleri burdan <br> görebilir ve geri dönüş <br> yapabilirsin</p>
+        </a>
+        </div>
+        <div class="icDiv">
+        <a href="@Url.Action("Index","Firma")">
+        <h2>Firma Başvuruları ()</h2>
+        <p>Firma işlemlerini burdan <br> yönetebilirsin</p>
+        </a>
+        </div>
+        <div class="icDiv">
+        <a href="@Url.Action("Index","KargoFirma")">
+        <h2>Kargo Firma Yönetimi </h2>
+        <p>Kargo firmalarını <br> yönetmek için tıklayınız</p>
+        </a>
+        </div>
+        </div>
+        <div class="ayiriciDiv">
+
+        <div class="icDiv">
+        <a href="@Url.Action("FirmaOneriler","Firma")">
+        <h2>Firmalardan gelen <br> Öneriler</h2>
+        <p>Ve diğer kargo <br> firma işlemleri</p>
+        </a>
+        </div>
+        <div class="icDiv">
+        <a href="@Url.Action("Index","Kullanici")">
+        <h2>Kullanıcı Yönetimi</h2>
+        <p>Önerileri okumak için <br> tıklayınız</p>
+        </a>
+        </div>
+        <div class="icDiv">
+        <a href="@Url.Action("Index","TeknikEleman")">
+        <h2>Teknik Eleman <br> Başvuruları</h2>
+        <p>Ve diğer teknik eleman <br> işlemleri</p>
+        </a>
+        </div> *@
     </div>
 </div>
 

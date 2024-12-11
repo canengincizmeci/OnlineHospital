@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OnlineHospital.DB.Model;
@@ -11,9 +12,11 @@ using OnlineHospital.DB.Model;
 namespace OnlineHospital.DB.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241130184809_HasRoleColumn")]
+    partial class HasRoleColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -305,7 +308,7 @@ namespace OnlineHospital.DB.Migrations
                     b.Property<bool>("ActivityStatus")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("BirthYear")
+                    b.Property<DateTime>("BirthYear")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DoctorName")
@@ -313,10 +316,15 @@ namespace OnlineHospital.DB.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<bool>("IsProfileUpdated")
-                        .HasColumnType("boolean");
+                    b.Property<string>("DoctorUserName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int>("MedicalSpecialtyId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SpecialtyId")
                         .HasColumnType("integer");
 
                     b.Property<string>("UserId")
@@ -325,7 +333,7 @@ namespace OnlineHospital.DB.Migrations
 
                     b.HasKey("DoctorId");
 
-                    b.HasIndex("MedicalSpecialtyId");
+                    b.HasIndex("SpecialtyId");
 
                     b.HasIndex("UserId");
 
@@ -386,11 +394,8 @@ namespace OnlineHospital.DB.Migrations
                     b.Property<bool>("ActivityStatus")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("BirthYear")
+                    b.Property<DateTime>("BirthYear")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsProfileUpdated")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -417,11 +422,8 @@ namespace OnlineHospital.DB.Migrations
                     b.Property<bool>("Availability")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime?>("BirthYear")
+                    b.Property<DateTime>("BirthYear")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsProfileUpdated")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -538,7 +540,7 @@ namespace OnlineHospital.DB.Migrations
                 {
                     b.HasOne("OnlineHospital.DB.Model.DoctorSpecialty", "Specialty")
                         .WithMany()
-                        .HasForeignKey("MedicalSpecialtyId")
+                        .HasForeignKey("SpecialtyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

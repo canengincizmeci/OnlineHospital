@@ -1,0 +1,37 @@
+﻿@using CommonLibrary.ViewModels
+@model List<DoctorListViewModel>
+@{
+    ViewData["Title"] = "DoctorList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>Doktor Adı</th>
+            <th>Uzmanlıık</th>
+            <th>Profil Durumu</th>
+            <th>Randevu Ekle</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DoctorName</td>
+                <td>@item.Specialty</td>
+                @if (item.IsCompletedInfos)
+                {
+                    <td>Tamamlanmış</td>
+                }
+                else
+                {
+                    <td>Tamamlanmamış</td>
+                }
+                <td><a class="btn btn-primary" asp-action="AddAppointment" asp-controller="AppointmentManagement" asp-area="Admin">Randevu Ekle</a></td>
+                <td><a class="btn btn-danger" asp-action="DeleteDoctor" asp-controller="DoctorManagement" asp-area="Admin">Sil</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

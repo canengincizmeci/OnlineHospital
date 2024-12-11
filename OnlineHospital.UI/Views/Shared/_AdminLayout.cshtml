@@ -4,6 +4,12 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -59,10 +65,10 @@
     <nav>
         <ul class="top-menu">
             <div class="ilkLinkler">
-            <li><a href="@Url.Action("Index","Admin")">Anasayfa</a></li>
-            <li><a href="@Url.Action("Index","Cekilis")">Çekilişler</a></li>
-            <li><a href="@Url.Action("Index","Kampanya")">Kampanyalar</a></li>
-            <li><a href="@Url.Action("Index","Istatistik")">İstatistikler</a></li>
+            <li><a href="@Url.Action("AdminIndex","Admin",new{area="Admin"})">Anasayfa</a></li>
+            <li><a href="@Url.Action("DoctorList","DoctorManagement",new{area="Admin"})">Doktorlar</a></li>
+            <li><a href="@Url.Action("PatienList","Patient",new{area="Admin"})">Üyeler</a></li>
+            <li><a href="@Url.Action("WorkerList","Worker",new{area="Admin"})">Temsilciler</a></li>
             <li><a href="@Url.Action("MesajGonderilecekKisiler","Mesaj")">Mesaj Gönder</a></li>
             </div>
             <div class="sonLinkler">

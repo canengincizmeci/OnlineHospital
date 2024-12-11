@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OnlineHospital.DB.Model;
@@ -11,9 +12,11 @@ using OnlineHospital.DB.Model;
 namespace OnlineHospital.DB.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241207132521_SpecialtyIdNullable")]
+    partial class SpecialtyIdNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -316,7 +319,10 @@ namespace OnlineHospital.DB.Migrations
                     b.Property<bool>("IsProfileUpdated")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("MedicalSpecialtyId")
+                    b.Property<int?>("MedicalSpecialtyId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SpecialtyId")
                         .HasColumnType("integer");
 
                     b.Property<string>("UserId")
@@ -325,7 +331,7 @@ namespace OnlineHospital.DB.Migrations
 
                     b.HasKey("DoctorId");
 
-                    b.HasIndex("MedicalSpecialtyId");
+                    b.HasIndex("SpecialtyId");
 
                     b.HasIndex("UserId");
 
@@ -538,7 +544,7 @@ namespace OnlineHospital.DB.Migrations
                 {
                     b.HasOne("OnlineHospital.DB.Model.DoctorSpecialty", "Specialty")
                         .WithMany()
-                        .HasForeignKey("MedicalSpecialtyId")
+                        .HasForeignKey("SpecialtyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

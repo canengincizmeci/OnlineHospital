@@ -14,7 +14,7 @@ namespace OnlineHospital.DB.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PatinetId { get; set; }
 
-        public DateTime BirthYear { get; set; }
+        public DateTime? BirthYear { get; set; }
         [Required]
         [ForeignKey("AppUser")]
         public string UserId { get; set; }
@@ -23,6 +23,7 @@ namespace OnlineHospital.DB.Model
         public AppUser User { get; set; }
         [Required]
         public bool ActivityStatus { get; set; }
+        public bool IsProfileUpdated { get; set; }
 
 
 

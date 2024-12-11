@@ -1,5 +1,6 @@
 ﻿
 using CommonLibrary.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace OnlineHospital.API.Controllers.Admin
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(Roles ="Admin")]
     public class API_AdminController : ControllerBase
     {
 

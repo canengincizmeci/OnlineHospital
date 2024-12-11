@@ -5,7 +5,7 @@ namespace OnlineHospital.API.Controllers.PatientRelationsWorker
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PatientRelationsWorkerController : ControllerBase
+    public class API_PatientRelationsWorkerController : ControllerBase
     {
 
 

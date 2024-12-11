@@ -19,14 +19,14 @@ namespace OnlineHospital.DB.Model
 
 
         }
-        DbSet<Doctor> Doctors { get; set; }
-        DbSet<Patient> Patients { get; set; }
-        DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
-        DbSet<Administrator> Administrators { get; set; }
-        DbSet<PatientRelationsWorker> PatientRelationsWorker { get; set; }
-        DbSet<OpenAppointmentSlot> OpenAppointmentSlots { get; set; }
-        DbSet<CreatedAppointment> CreatedAppointments { get; set; }
-        DbSet<CompletedAppointment> CompletedAppointments { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<DoctorSpecialty> DoctorSpecialties { get; set; }
+        public DbSet<Administrator> Administrators { get; set; }
+        public DbSet<PatientRelationsWorker> PatientRelationsWorker { get; set; }
+        public DbSet<OpenAppointmentSlot> OpenAppointmentSlots { get; set; }
+        public DbSet<CreatedAppointment> CreatedAppointments { get; set; }
+        public DbSet<CompletedAppointment> CompletedAppointments { get; set; }
 
     }
 }

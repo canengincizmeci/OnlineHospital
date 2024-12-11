@@ -20,12 +20,12 @@ namespace OnlineHospital.DB.Model
         [Required]
         [StringLength(100)]
         public string WorkerUserName { get; set; }
-        public DateTime BirthYear { get; set; }
+        public DateTime? BirthYear { get; set; }
         [Required]
         [ForeignKey("AppUser")]
         public string UserId { get; set; }
 
-
+        public bool IsProfileUpdated { get; set; }
         public AppUser User { get; set; }
         [Required]
         public bool ActivityStatus { get; set; }

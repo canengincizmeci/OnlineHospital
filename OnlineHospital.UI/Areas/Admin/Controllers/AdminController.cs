@@ -3,11 +3,13 @@ using CommonLibrary.ViewModels;
 using OnlineHospital.API.Controllers;
 using OnlineHospital.DB.Model;
 using CommonLibrary.Extensions;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace OnlineHospital.UI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;
@@ -19,11 +21,13 @@ namespace OnlineHospital.UI.Areas.Admin.Controllers
             _httpClient = httpClientFactory.CreateClient("HomeController");
         }
 
-        public  IActionResult AdminIndex()
+        public IActionResult AdminIndex()
         {
 
 
             return View();
         }
+
+
     }
 }

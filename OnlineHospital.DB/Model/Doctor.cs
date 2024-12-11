@@ -17,22 +17,24 @@ namespace OnlineHospital.DB.Model
         [Required]
         [StringLength(100)]
         public string DoctorName { get; set; }
-        [Required]
-        [StringLength(100)]
-        public string DoctorUserName { get; set; }
-        public DateTime BirthYear { get; set; }
+
+        public DateTime? BirthYear { get; set; }
 
         [Required]
         [ForeignKey("AppUser")]
         public string UserId { get; set; }
+
+        [ForeignKey("Specialty")]
         [Required]
-        [ForeignKey("DoctorSpecialty")]
         public int MedicalSpecialtyId { get; set; }
 
         public AppUser User { get; set; }
         public DoctorSpecialty Specialty { get; set; }
         [Required]
         public bool ActivityStatus { get; set; }
+        public bool IsProfileUpdated { get; set; }
+
+
 
     }
 }
