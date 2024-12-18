@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OnlineHospital.DB.Model;
@@ -11,9 +12,11 @@ using OnlineHospital.DB.Model;
 namespace OnlineHospital.DB.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241213140820_RemoveForeignKeyInAppointment")]
+    partial class RemoveForeignKeyInAppointment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -364,18 +367,10 @@ namespace OnlineHospital.DB.Migrations
                     b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("AppointmentWeekId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("DoctorId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("WeekIdAppointmentWeekId")
-                        .HasColumnType("integer");
-
                     b.HasKey("AppointmentId");
-
-                    b.HasIndex("WeekIdAppointmentWeekId");
 
                     b.ToTable("OpenAppointmentSlots");
                 });
@@ -451,22 +446,6 @@ namespace OnlineHospital.DB.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("PatientRelationsWorker");
-                });
-
-            modelBuilder.Entity("OnlineHospital.DB.Model.WeekForAppointment", b =>
-                {
-                    b.Property<int>("AppointmentWeekId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AppointmentWeekId"));
-
-                    b.Property<DateTime>("WeekFirstDay")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("AppointmentWeekId");
-
-                    b.ToTable("WeekForAppointments");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -576,17 +555,6 @@ namespace OnlineHospital.DB.Migrations
                     b.Navigation("Specialty");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("OnlineHospital.DB.Model.OpenAppointmentSlot", b =>
-                {
-                    b.HasOne("OnlineHospital.DB.Model.WeekForAppointment", "WeekId")
-                        .WithMany()
-                        .HasForeignKey("WeekIdAppointmentWeekId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("WeekId");
                 });
 
             modelBuilder.Entity("OnlineHospital.DB.Model.Patient", b =>

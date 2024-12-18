@@ -27,6 +27,7 @@ namespace OnlineHospital.DB.Model
         public DbSet<OpenAppointmentSlot> OpenAppointmentSlots { get; set; }
         public DbSet<CreatedAppointment> CreatedAppointments { get; set; }
         public DbSet<CompletedAppointment> CompletedAppointments { get; set; }
-
+        public DbSet<WeekForAppointment> WeekForAppointments { get; set; }
     }
 }
+

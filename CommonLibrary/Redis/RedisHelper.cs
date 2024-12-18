@@ -16,6 +16,17 @@ namespace CommonLibrary.Redis
 
             return _connection.Value.GetDatabase();
         }
+        public static async Task SetAsync(string key, string value, TimeSpan expiry)
+        {
+            var db = GetDatabase();
+            await db.StringSetAsync(key, value, expiry);
+        }
+
+        public static async Task<string?> GetAsync(string key)
+        {
+            var db = GetDatabase();
+            return await db.StringGetAsync(key);
+        }
 
     }
 }

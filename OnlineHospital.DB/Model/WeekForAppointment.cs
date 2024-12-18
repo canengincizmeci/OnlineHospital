@@ -8,19 +8,12 @@ using System.Threading.Tasks;
 
 namespace OnlineHospital.DB.Model
 {
-    public class OpenAppointmentSlot
+    public class WeekForAppointment
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int AppointmentId { get; set; }
-      
-   
-        [Required]
-        public DateTime AppointmentDate { get; set; }
-        [ForeignKey("WeekForAppointments")]
-        [Required]
         public int AppointmentWeekId { get; set; }
-        public WeekForAppointment WeekId { get; set; }
-      
+        public DateTime WeekFirstDay { get; set; }
+
     }
 }
