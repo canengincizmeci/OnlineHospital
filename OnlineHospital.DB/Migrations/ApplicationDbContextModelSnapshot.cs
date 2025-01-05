@@ -136,11 +136,8 @@ namespace OnlineHospital.DB.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("AdminId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -279,10 +276,7 @@ namespace OnlineHospital.DB.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CreatedAppointmentId"));
 
-                    b.Property<int>("OpendAppointmentSlotAppointmentId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("OpenedAppointmentId")
+                    b.Property<int>("OpenAppointmentSlotId")
                         .HasColumnType("integer");
 
                     b.Property<int>("PatientId")
@@ -290,7 +284,7 @@ namespace OnlineHospital.DB.Migrations
 
                     b.HasKey("CreatedAppointmentId");
 
-                    b.HasIndex("OpendAppointmentSlotAppointmentId");
+                    b.HasIndex("OpenAppointmentSlotId");
 
                     b.HasIndex("PatientId");
 
@@ -316,11 +310,11 @@ namespace OnlineHospital.DB.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<int>("DoctorSpecialtyId")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("IsProfileUpdated")
                         .HasColumnType("boolean");
-
-                    b.Property<int>("MedicalSpecialtyId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -328,7 +322,7 @@ namespace OnlineHospital.DB.Migrations
 
                     b.HasKey("DoctorId");
 
-                    b.HasIndex("MedicalSpecialtyId");
+                    b.HasIndex("DoctorSpecialtyId");
 
                     b.HasIndex("UserId");
 
@@ -364,18 +358,20 @@ namespace OnlineHospital.DB.Migrations
                     b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("AppointmentWeekId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("DoctorId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("WeekIdAppointmentWeekId")
+                    b.Property<bool>("IsSelected")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("WeekForAppointmentId")
                         .HasColumnType("integer");
 
                     b.HasKey("AppointmentId");
 
-                    b.HasIndex("WeekIdAppointmentWeekId");
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("WeekForAppointmentId");
 
                     b.ToTable("OpenAppointmentSlots");
                 });
@@ -524,7 +520,9 @@ namespace OnlineHospital.DB.Migrations
                 {
                     b.HasOne("OnlineHospital.DB.Model.AppUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -542,9 +540,9 @@ namespace OnlineHospital.DB.Migrations
 
             modelBuilder.Entity("OnlineHospital.DB.Model.CreatedAppointment", b =>
                 {
-                    b.HasOne("OnlineHospital.DB.Model.OpenAppointmentSlot", "OpendAppointmentSlot")
+                    b.HasOne("OnlineHospital.DB.Model.OpenAppointmentSlot", "OpenAppointmentSlot")
                         .WithMany()
-                        .HasForeignKey("OpendAppointmentSlotAppointmentId")
+                        .HasForeignKey("OpenAppointmentSlotId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -554,16 +552,16 @@ namespace OnlineHospital.DB.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("OpendAppointmentSlot");
+                    b.Navigation("OpenAppointmentSlot");
 
                     b.Navigation("Patient");
                 });
 
             modelBuilder.Entity("OnlineHospital.DB.Model.Doctor", b =>
                 {
-                    b.HasOne("OnlineHospital.DB.Model.DoctorSpecialty", "Specialty")
+                    b.HasOne("OnlineHospital.DB.Model.DoctorSpecialty", "DoctorSpecialty")
                         .WithMany()
-                        .HasForeignKey("MedicalSpecialtyId")
+                        .HasForeignKey("DoctorSpecialtyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -573,20 +571,28 @@ namespace OnlineHospital.DB.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Specialty");
+                    b.Navigation("DoctorSpecialty");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("OnlineHospital.DB.Model.OpenAppointmentSlot", b =>
                 {
-                    b.HasOne("OnlineHospital.DB.Model.WeekForAppointment", "WeekId")
+                    b.HasOne("OnlineHospital.DB.Model.Doctor", "Doctor")
                         .WithMany()
-                        .HasForeignKey("WeekIdAppointmentWeekId")
+                        .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("WeekId");
+                    b.HasOne("OnlineHospital.DB.Model.WeekForAppointment", "WeekForAppointment")
+                        .WithMany()
+                        .HasForeignKey("WeekForAppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("WeekForAppointment");
                 });
 
             modelBuilder.Entity("OnlineHospital.DB.Model.Patient", b =>

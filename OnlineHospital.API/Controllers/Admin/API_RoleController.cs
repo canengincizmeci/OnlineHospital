@@ -98,7 +98,7 @@ namespace OnlineHospital.API.Controllers.Admin
                         DoctorName = user.UserName!,
                         UserId = user.Id,
                         IsProfileUpdated = false,
-                        MedicalSpecialtyId = 1
+                        DoctorSpecialtyId = 1
                     });
                 }
                 else if (request.RoleName == "Patient")
@@ -121,14 +121,15 @@ namespace OnlineHospital.API.Controllers.Admin
                         BirthYear = null,
                         IsProfileUpdated = false,
                         WorkerName = user.UserName!,
-                        UserId = user.Id
+                        UserId = user.Id,
+                        WorkerUserName = user.UserName!
                     });
                 }
                 else if (request.RoleName == "Admin")
                 {
                     await _context.Administrators.AddAsync(new()
                     {
-                        AdminId = user.Id,
+                        UserId = user.Id,
 
                     });
                 }

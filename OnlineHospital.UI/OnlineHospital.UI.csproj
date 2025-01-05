@@ -10,7 +10,9 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,12 +20,8 @@
     <Folder Include="Areas\Doctor\Controllers\" />
     <Folder Include="Areas\Doctor\Models\" />
     <Folder Include="Areas\Doctor\Views\" />
-    <Folder Include="Areas\PatientRelationsWorker\Controllers\" />
     <Folder Include="Areas\PatientRelationsWorker\Models\" />
-    <Folder Include="Areas\PatientRelationsWorker\Views\" />
-    <Folder Include="Areas\Patient\Controllers\" />
     <Folder Include="Areas\Patient\Models\" />
-    <Folder Include="Areas\Patient\Views\" />
   </ItemGroup>
 
   <ItemGroup>

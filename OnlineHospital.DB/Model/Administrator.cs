@@ -16,7 +16,7 @@ namespace OnlineHospital.DB.Model
 
         [Required]
         [ForeignKey("AppUser")]
-        public string AdminId { get; set; }
+        public string UserId { get; set; }
 
 
         public AppUser User { get; set; }

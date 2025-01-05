@@ -1,0 +1,103 @@
+﻿@using CommonLibrary.ViewModels
+@model AddAppointmentForDoctorViewModel
+@{
+    ViewData["Title"] = "AddAppointForDoctor";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    var daysOfWeek = new[] { "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma" };
+    var timeSlots = new[]
+    {
+        new { Start = "10:00", End = "10:30" },
+        new { Start = "13:00", End = "13:30" },
+        new { Start = "15:00", End = "15:30" }
+    };
+}
+
+
+<script>
+    $(document).ready(function () {
+        $("#appointmentForm").on("submit", function (e) {
+            e.preventDefault();
+
+
+            var doctorId = $("#doctorId").val();
+            var appointmentTime = $("#appointmentTime").val();
+
+
+            $.ajax({
+                url: '/Admin/AppointmentManagement/AddAppointForDoctor',
+                type: 'POST',
+                data: {
+                    doctorId: doctorId,
+                    appointmentTime: appointmentTime
+                },
+                success: function (response) {
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Başarılı',
+                        text: response.message,
+                        confirmButtonText: 'Tamam'
+                    });
+                },
+                error: function (xhr, status, error) {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata',
+                        text: 'Randevu eklenirken bir hata oluştu.',
+                        confirmButtonText: 'Tamam'
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+<div>
+    <h3>Randevu Ekle</h3>
+    Ad: <p>@Model.DoctorDetails.DoctorName</p>
+    Soyad: <p>@Model.DoctorDetails.Specialty</p>
+    <form id="appointmentForm" asp-action="AddAppointForDoctor" asp-controller="AppointmentManagement" asp-area="Admin" method="post">
+        <div>
+            <label for="appointmentTime">Randevu Saati:</label>
+            <select id="appointmentTime" name="appointmentTime" class="form-control">
+                <option value="">Bir saat seçin</option>
+                @foreach (var day in daysOfWeek)
+                {
+                    foreach (var slot in timeSlots)
+                    {
+                        <option value="@($"{day} {slot.Start}-{slot.End}")">
+                            @($"{day} {slot.Start}-{slot.End}")
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+        <input id="doctorId" type="hidden" name="doctorId" value="@ViewBag.DoctorId" />
+        <button type="submit" class="btn btn-primary mt-3">Ekle</button>
+    </form>
+</div>
+@if (Model.Times.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Randevu Saati</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Times)
+            {
+                <tr>
+                    <td>@item.Date</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Randevu Eklenmemiş</p>
+}

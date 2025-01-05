@@ -1,15 +1,33 @@
 
 
+
+
+using OnlineHospital.UI.SignalR;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(5);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddSignalR();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
     });
 });
 
@@ -24,18 +42,8 @@ builder.Services.AddHttpClient("ApiClient", client =>
 });
 
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
+builder.Services.AddSignalR();
 
-    var cookieBuilder = new CookieBuilder();
-    cookieBuilder.Name = "UdemyAppCookie";
-    options.LoginPath = new PathString("/Home/SignIn");
-    options.LogoutPath = new PathString("/Member/LogOut");
-    options.AccessDeniedPath = new PathString("/Member/AccessDenied");
-    options.Cookie = cookieBuilder;
-    options.ExpireTimeSpan = TimeSpan.FromDays(60);
-    options.SlidingExpiration = true;
-});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,6 +53,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.UseCors("AllowAll");
+app.MapHub<ChatHub>("/chatHub");
 
 
 app.UseHttpsRedirection();
@@ -56,7 +66,7 @@ app.Use(async (context, next) =>
     Console.WriteLine($"Request Path: {context.Request.Path}");
     await next.Invoke();
 });
-
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 

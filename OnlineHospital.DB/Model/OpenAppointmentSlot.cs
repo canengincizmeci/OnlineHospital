@@ -13,14 +13,19 @@ namespace OnlineHospital.DB.Model
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AppointmentId { get; set; }
-      
-   
+
+
+
         [Required]
         public DateTime AppointmentDate { get; set; }
         [ForeignKey("WeekForAppointments")]
         [Required]
-        public int AppointmentWeekId { get; set; }
-        public WeekForAppointment WeekId { get; set; }
-      
+        public int WeekForAppointmentId { get; set; }
+        [ForeignKey("Doctor")]
+        public int DoctorId { get; set; }
+        public bool IsSelected { get; set; }
+        public Doctor Doctor { get; set; }
+        public WeekForAppointment WeekForAppointment { get; set; }
+
     }
 }

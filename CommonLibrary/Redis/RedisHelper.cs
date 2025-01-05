@@ -27,6 +27,24 @@ namespace CommonLibrary.Redis
             var db = GetDatabase();
             return await db.StringGetAsync(key);
         }
+        public static async Task SetDateTimeAsync(string key, DateTime value, TimeSpan expiry)
+        {
+            var db = GetDatabase();
+            string dateTimeString = value.ToString("o");
+            await db.StringSetAsync(key, dateTimeString, expiry);
+        }
+
+        public static async Task<DateTime?> GetDateTimeAsync(string key)
+        {
+            var db = GetDatabase();
+            string? dateTimeString = await db.StringGetAsync(key);
+
+            if (dateTimeString != null && DateTime.TryParse(dateTimeString, null, System.Globalization.DateTimeStyles.RoundtripKind, out DateTime result))
+            {
+                return result;
+            }
+            return null;
+        }
 
     }
 }

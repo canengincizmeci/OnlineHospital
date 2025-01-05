@@ -1,4 +1,5 @@
 using CommonLibrary.Extensions;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,6 +45,7 @@ builder.Services.AddCors(options =>
                           .AllowAnyHeader());
 });
 
+
 var app = builder.Build();
 //using (var scope = app.Services.CreateScope())
 //{
@@ -53,7 +55,7 @@ var app = builder.Build();
 //    // Admin rolü ve kullanýcý oluþturma iþlemleri burada yapýlýr
 //    string roleName = "Admin";
 //    string adminEmail = "canncizmeci@gmail.com";
-    
+
 
 //    if (!await roleManager.RoleExistsAsync(roleName))
 //    {
@@ -66,7 +68,7 @@ var app = builder.Build();
 //    }
 
 //    var user = await userManager.FindByEmailAsync(adminEmail);
-   
+
 
 //    if (!await userManager.IsInRoleAsync(user!, roleName))
 //    {
@@ -79,6 +81,7 @@ var app = builder.Build();
 
 //    Console.WriteLine($"'{adminEmail}' kullanýcýsý '{roleName}' rolüne baþarýyla atandý.");
 //}
+
 
 app.UseCors("AllowAll");
 

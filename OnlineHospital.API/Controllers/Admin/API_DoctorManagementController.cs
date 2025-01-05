@@ -32,7 +32,8 @@ namespace OnlineHospital.API.Controllers.Admin
             {
                 DoctorName = p.DoctorName,
                 IsCompletedInfos = p.IsProfileUpdated,
-                Specialty = p.Specialty.SpecialtyName
+                Specialty = p.DoctorSpecialty.SpecialtyName,
+                DoctorId = p.DoctorId,
             }).ToListAsync();
 
             return Ok(doctors);

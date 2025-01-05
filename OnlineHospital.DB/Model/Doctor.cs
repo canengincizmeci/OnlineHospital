@@ -24,12 +24,12 @@ namespace OnlineHospital.DB.Model
         [ForeignKey("AppUser")]
         public string UserId { get; set; }
 
-        [ForeignKey("Specialty")]
+        [ForeignKey("DoctorSpecialty")]
         [Required]
-        public int MedicalSpecialtyId { get; set; }
+        public int DoctorSpecialtyId { get; set; }
 
         public AppUser User { get; set; }
-        public DoctorSpecialty Specialty { get; set; }
+        public DoctorSpecialty DoctorSpecialty { get; set; }
         [Required]
         public bool ActivityStatus { get; set; }
         public bool IsProfileUpdated { get; set; }

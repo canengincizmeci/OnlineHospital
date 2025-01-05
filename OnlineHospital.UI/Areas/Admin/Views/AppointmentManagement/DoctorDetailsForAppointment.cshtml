@@ -1,0 +1,24 @@
+﻿@using CommonLibrary.ViewModels
+@model DoctorListViewModel
+@{
+    ViewData["Title"] = "DoctorDetailsForAppointment";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div>
+
+    @Model.DoctorName
+    @Model.Specialty
+    @if (Model.IsCompletedInfos)
+    {
+        <p>Tamamlanmış</p>
+    }
+    else
+    {
+        <p>Tamamlanmamış</p>
+    }
+    <p><a class="btn btn-primary" asp-action="AddAppointForDoctor" asp-controller="AppointmentManagement" asp-area="Admin" asp-route-doctorId="@Model.DoctorId">Randevu Ekle</a></p>
+
+</div>

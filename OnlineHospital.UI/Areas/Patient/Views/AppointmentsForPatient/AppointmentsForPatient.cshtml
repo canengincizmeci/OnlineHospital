@@ -1,0 +1,102 @@
+﻿@using CommonLibrary.ViewModels
+@model List<AppointmentForPatientViewModel>
+@{
+    ViewData["Title"] = "AppointmentsForPatient";
+    Layout = "~/Views/Shared/_PatientLayout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+
+        $(".getAppointment").click(function (e) {
+            e.preventDefault();
+            var appointmentId = $(this).data("appointment-id");
+            var userId = $(this).data("user-id");
+            var url = $(this).attr("href");
+
+            console.log(url);
+            console.log(appointmentId);
+            console.log(userId);
+            Swal.fire({
+                icon: "warning",
+                title: "Bu Randevuyu almak istedğinizden emin misiniz?",
+                text: "Randevu alınacak",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet',
+                cancelButtonText: "Vazgeç"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                                dataType: "json",
+                            contentType: "application/json",
+                        data: JSON.stringify({ 
+        appointmentId: appointmentId, 
+        userId: userId.toString()  
+    }),
+                        success: function (response) {
+                            if (response.success) {
+                                Swal.fire(
+                                    'Randevu Alındı',
+                                    'İşlem başarıyla tamamlandı',
+                                    'success'
+                                ).then(function () {
+                                    location.reload();
+                                });
+                            }
+                            else {
+                                Swal.fire(
+                                    'Hata',
+                                    response.message || 'Randevu alınırken',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function () {
+                            Swal.fire(
+                                'Hata',
+                                'Randevu alınamadı',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+
+</script>
+
+
+@if (Model.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Doktor Adı</th>
+                <th>Randevu Tarihi</th>
+                <th>Randevu Al</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appointment in Model)
+            {
+                <tr>
+                    <td>@appointment.AppointmentId</td>
+                    <td>@appointment.DoctorName</td>
+                    <td>@appointment.AppointmentDate</td>
+                    <td><a asp-action="MakeAppointment" asp-controller="AppointmentsForPatient" asp-area="Patient" class="btn btn-success  getAppointment" data-appointment-id="@appointment.AppointmentId" data-user-id="@ViewBag.UserId">Randevu Al</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h4>Mevcut randevu yok</h4>
+}

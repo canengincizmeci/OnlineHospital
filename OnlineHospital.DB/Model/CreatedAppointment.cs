@@ -21,10 +21,10 @@ namespace OnlineHospital.DB.Model
 
         [Required]
         [ForeignKey("OpenAppointmentSlot")]
-        public int OpenedAppointmentId { get; set; }
+        public int OpenAppointmentSlotId { get; set; }
 
 
-        public OpenAppointmentSlot OpendAppointmentSlot { get; set; }
+        public OpenAppointmentSlot OpenAppointmentSlot { get; set; }
         public Patient Patient { get; set; }
 
     }

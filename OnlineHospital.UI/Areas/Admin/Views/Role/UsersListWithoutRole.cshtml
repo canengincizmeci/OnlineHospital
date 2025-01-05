@@ -40,6 +40,7 @@
                         contentType: "application/json",
                         data: JSON.stringify({ userId, roleName }),
                         success: function (response) {
+                            console.log(response);
                             if (response.success) {
                                 Swal.fire(
                                     'Rol atandı',
@@ -66,6 +67,8 @@
                         }
                     });
                 }
+            }).catch(error => {
+                console.error("Swal error:", error);
             });
         });
     });

@@ -62,16 +62,50 @@ namespace OnlineHospital.UI.Controllers
             if (result != null && result.ContainsKey("redirectUrl"))
             {
                 var redirectUrl = result["redirectUrl"];
-                var urlParts = redirectUrl.Split('/'); 
+                var urlParts = redirectUrl.Split('/');
 
                 if (urlParts.Length >= 2)
                 {
-                    var controller = urlParts[1];  
-                    var action = urlParts[2];      
+                    var controller = urlParts[1];
+                    var action = urlParts[2];
 
-                    
+
                     if (urlParts.Length >= 3)
                     {
+                        if (controller.ToString() == "Admin")
+                        {
+                            var AdminResponse = await _httpClient.PostAsJsonAsync("https://localhost:44365/api/API_Admin/GetAdminIdsByAdminEmail", request.Email);
+                            if (AdminResponse.IsSuccessStatusCode)
+                            {
+                                var userInfos = await AdminResponse.Content.ReadFromJsonAsync<IdentityForRolesViewModel>();
+                                HttpContext.Session.SetInt32("byRoleAdminId", userInfos!.IdByRole);
+                                HttpContext.Session.SetString("AdminId", userInfos.UserId);
+                            }
+                        }
+                        if (controller.ToString() == "Worker")
+                        {
+                            var WorkerResponse = await _httpClient.PostAsJsonAsync("https://localhost:44365/api/API_PatientRelationsWorker/GetWorkerIdsByAdminEmail", request.Email);
+                            if (WorkerResponse.IsSuccessStatusCode)
+                            {
+                                var userInfos = await WorkerResponse.Content.ReadFromJsonAsync<IdentityForRolesViewModel>();
+                                HttpContext.Session.SetInt32("byRoleWorkerId", userInfos!.IdByRole);
+                                HttpContext.Session.SetString("WorkerId", userInfos.UserId);
+                            }
+                        }
+                        if (controller.ToString() == "Patient")
+                        {
+                            var Userresponse = await _httpClient.PostAsJsonAsync("https://localhost:44365/api/API_User/GetUserIdsByUserEmail", request.Email);
+                            if (Userresponse.IsSuccessStatusCode)
+                            {
+                                var userInfos = await Userresponse.Content.ReadFromJsonAsync<IdentityForRolesViewModel>();
+                                HttpContext.Session.SetInt32("byRoleUserId", userInfos!.IdByRole);
+                                HttpContext.Session.SetString("userId", userInfos.UserId);
+                            }
+                        }
+                        if (controller.ToString() == "Doctor")
+                        {
+
+                        }
                         var area = urlParts[0];
                         return RedirectToAction(action, controller, new { area = area });
                     }
@@ -79,8 +113,8 @@ namespace OnlineHospital.UI.Controllers
                 }
             }
 
-          
-            
+
+
 
             ModelState.AddModelError(string.Empty, "Bir hata oluþtu.");
             return View();
