@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OnlineHospital.DB.Model;
 
 namespace OnlineHospital.UI.Areas.PatientRelationsWorker.Controllers
 {
@@ -6,21 +7,27 @@ namespace OnlineHospital.UI.Areas.PatientRelationsWorker.Controllers
     public class WorkerController : Controller
     {
         private readonly HttpClient _httpClient;
+        private readonly ApplicationDbContext _context;
 
-
-        public WorkerController(IHttpClientFactory httpClientFactory)
+        public WorkerController(IHttpClientFactory httpClientFactory, ApplicationDbContext context)
         {
             _httpClient = httpClientFactory.CreateClient();
-
+            _context = context;
         }
-     
 
-       
-        public IActionResult PatientRelationsWorkerIndex()
+
+
+        public async Task<IActionResult> PatientRelationsWorkerIndex()
         {
+            int? id = HttpContext.Session.GetInt32("byRoleWorkerId");
+            if (!id.HasValue)
+            {
+                return RedirectToAction("Login", "Home");
+            }
 
+            var worker = await _context.PatientRelationsWorker.FindAsync(id);
+            ViewBag.WorkerName = worker!.WorkerName;
 
-            
 
             return View();
         }

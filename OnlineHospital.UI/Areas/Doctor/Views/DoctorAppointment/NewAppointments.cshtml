@@ -1,0 +1,37 @@
+﻿@using CommonLibrary.ViewModels
+@model List<NewAppointmentsDTO>
+@{
+    ViewData["Title"] = "NewAppointments";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+
+
+
+@if (Model.Count > 0)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Hasta Ad</th>
+                <th>Tarih</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.createdAppointmentId</td>
+                    <td>@item.patientName</td>
+                    <td>@item.appointmentDate</td>
+                    <td><a asp-action="AddResultForAppointment" asp-controller="DoctorAppointment" asp-area="Doctor" asp-route-appointmentId="@item.createdAppointmentId" class="btn btn-success complete">Sonuçları Gir</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>Mevcut Randevu Yok</h3>
+}

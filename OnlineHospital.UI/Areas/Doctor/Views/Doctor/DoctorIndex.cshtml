@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "DoctorIndex";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+<style>
+
+    .anaDiv {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background-color: #eae2f8;
+        min-height: 70vh;
+    }
+
+    .ayiriciDiv {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+    }
+
+    .icDiv {
+        border: solid 1px rgba(41, 26, 65, 0.1);
+        border-radius: 8px;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        padding: 20px;
+        text-align: center;
+        flex: 1;
+        min-width: 200px;
+        max-width: 300px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .icDiv:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .icDiv h2 {
+            color: rgba(41, 26, 65, 1);
+        }
+
+        .icDiv p {
+            color: #555;
+        }
+
+    a {
+        text-decoration: none;
+    }
+
+</style>
+
+
+
+<div class="anaDiv">
+    <div class="ayiriciDiv">
+        <div class="icDiv">
+            <a asp-action="NewAppointments" asp-controller="DoctorAppointment" asp-area="Doctor">
+                <h2>Yeni Randevular ()</h2>
+                <p>Açık randevuları görüntüle</p>
+            </a>
+        </div>
+    </div>
+</div>
+

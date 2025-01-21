@@ -24,6 +24,7 @@ namespace OnlineHospital.DB.Model
         public int OpenAppointmentSlotId { get; set; }
 
 
+        public bool? IsCompleted { get; set; } = false;
         public OpenAppointmentSlot OpenAppointmentSlot { get; set; }
         public Patient Patient { get; set; }
 

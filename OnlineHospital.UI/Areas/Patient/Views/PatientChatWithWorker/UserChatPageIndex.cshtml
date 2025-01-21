@@ -1,12 +1,88 @@
 ﻿@{
     ViewData["Title"] = "UserChatPageIndex";
     Layout = "~/Views/Shared/_PatientLayout.cshtml";
+    var user = ViewBag.PatientName;
 }
 
+<style>
 
-<input id="userInput" type="text" placeholder="Your name" />
-<input id="messageInput" type="text" placeholder="Your message" />
-<button id="sendButton">Gönder</button>
+    .chat-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f9;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+        .chat-container h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .chat-container input {
+            width: calc(100% - 20px);
+            max-width: 500px;
+            padding: 10px;
+            margin: 10px auto;
+            display: block;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .chat-container button {
+            width: calc(100% - 20px);
+            max-width: 500px;
+            padding: 10px;
+            margin: 10px auto;
+            display: block;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            .chat-container button:hover {
+                background-color: #0056b3;
+            }
+
+        .chat-container ul {
+            list-style-type: none;
+            padding: 0;
+            max-width: 500px;
+            margin: 20px auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+            .chat-container ul li {
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+                font-size: 14px;
+            }
+
+                .chat-container ul li:last-child {
+                    border-bottom: none;
+                }
+</style>
+
+
+
+<div class="chat-container">
+    <h1>Temsilci ile mesajlaşma</h1>
+    @*    <input id="userInput" type="text" placeholder="Your name" /> *@
+    <input id="messageInput" type="text" placeholder="Your message" />
+    <button id="sendButton">Gönder</button>
+    <ul id="messagesList"></ul>
+</div>
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
 <script>
@@ -15,9 +91,13 @@
         .build();
 
     connection.start().catch(err => console.error(err.toString()));
-
+    connection.on("ReceiveMessage", (user, message) => {
+        const li = document.createElement("li");
+        li.textContent = `${user}: ${message}`;
+        document.getElementById("messagesList").appendChild(li);
+    });
     document.getElementById("sendButton").addEventListener("click", () => {
-        const user = document.getElementById("userInput").value;
+        const user = '@user';
         const message = document.getElementById("messageInput").value;
 
         connection.invoke("SendMessage", user, message).catch(err => console.error(err.toString()));

@@ -2,11 +2,18 @@
 
 
 
+using CommonLibrary.Extensions;
+using Microsoft.EntityFrameworkCore;
+using OnlineHospital.DB.Model;
 using OnlineHospital.UI.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+
+builder.Services.AddIdentityExt();
 
 
 // Add services to the container.

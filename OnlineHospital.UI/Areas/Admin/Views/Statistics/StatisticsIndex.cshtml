@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "StatisticsIndex";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>İstatistik Adı</th>
+            <th>Görüntüle</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Günlere göre muayane Grafiği</td>
+            <td><a class="btn btn-success" asp-area="Admin" asp-controller="Statistics" asp-action="ExaminationCharts">Görüntüle</a></td>
+        </tr>
+    </tbody>
+</table>

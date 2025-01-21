@@ -23,7 +23,7 @@ namespace OnlineHospital.API.Controllers.PatientRelationsWorker
         }
 
         [HttpPost("GetWorkerIdsByAdminEmail")]
-        public async Task<IActionResult> GetAdminIdsByAdminEmail([FromBody] string email)
+        public async Task<IActionResult> GetWorkerIdsByAdminEmail([FromBody] string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             var admin = await _context.PatientRelationsWorker.Include(l => l.User).FirstOrDefaultAsync(p => p.UserId == user!.Id);
@@ -34,9 +34,16 @@ namespace OnlineHospital.API.Controllers.PatientRelationsWorker
             };
 
 
+
             return Ok(model);
         }
+        [HttpGet("GetWorkerByName")]
+        public async Task<IActionResult> GetWorkerByName(string workerName)
+        {
+            var worker = await _context.PatientRelationsWorker.Include(l => l.User).FirstOrDefaultAsync(p => p.WorkerName == workerName);
 
+            return Ok(worker);
+        }
 
 
     }

@@ -1,0 +1,20 @@
+﻿@using CommonLibrary.ViewModels
+@model NewAppointmentsDTO
+@{
+    ViewData["Title"] = "AddResultForAppointment";
+    Layout = "~/Views/Shared/_DoctorLayout.cshtml";
+}
+
+
+<div>
+    <h3>Hasta Adı: @Model.patientName</h3>
+    <h3>Tarih: @Model.appointmentDate</h3>
+</div>
+
+
+<form asp-area="Doctor" asp-controller="DoctorAppointment" asp-action="AddResultForAppointment" method="post">
+    <label>Sonuçlar</label>
+    <input type="text" name="result" />
+    <input type="hidden" name="createdAppointmentId" value="@ViewBag.AppointmentId" />
+    <button type="submit">Gönder</button>
+</form>

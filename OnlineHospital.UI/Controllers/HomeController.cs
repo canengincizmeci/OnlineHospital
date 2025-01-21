@@ -104,7 +104,13 @@ namespace OnlineHospital.UI.Controllers
                         }
                         if (controller.ToString() == "Doctor")
                         {
-
+                            var doctorResponses = await _httpClient.PostAsJsonAsync("https://localhost:44365/api/API_Doctor/GetDoctorIdsByDoctorEmail", request.Email);
+                            if (doctorResponses.IsSuccessStatusCode)
+                            {
+                                var doctorInfos = await doctorResponses.Content.ReadFromJsonAsync<IdentityForRolesViewModel>();
+                                HttpContext.Session.SetInt32("byDoctorId", doctorInfos!.IdByRole);
+                                HttpContext.Session.SetString("doctorId", doctorInfos.UserId);
+                            }
                         }
                         var area = urlParts[0];
                         return RedirectToAction(action, controller, new { area = area });

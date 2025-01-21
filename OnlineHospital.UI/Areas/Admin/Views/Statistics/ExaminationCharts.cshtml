@@ -1,0 +1,49 @@
+﻿@using CommonLibrary.ViewModels
+@using System.Text.Json
+@model ExaminationChartDTO
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examination Charts</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div style="width: 80%; margin: 0 auto;">
+        <h2>Günlere Göre Muayene Sayısı</h2>
+        <canvas id="examinationChart"></canvas>
+    </div>
+
+    <script>
+        
+        const labels = @Html.Raw(JsonSerializer.Serialize(Model.Dates));
+        const dataCounts = @Html.Raw(JsonSerializer.Serialize(Model.Counts));
+
+      
+        const ctx = document.getElementById('examinationChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Muayene Sayısı',
+                    data: dataCounts,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

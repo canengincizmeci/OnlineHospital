@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #eae2f8;
+    }
+
+    nav {
+        overflow: hidden;
+        background-color: rgba(41, 26, 65, 1);
+    }
+
+    .top-menu {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .top-menu .ilk, .top-menu .sonLinkler {
+            display: flex;
+        }
+
+        .top-menu li {
+            display: inline;
+        }
+
+            .top-menu li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 20px;
+                text-decoration: none;
+            }
+
+                .top-menu li a:hover {
+                    background-color: black;
+                }
+
+    .sonLinkler {
+        display: flex;
+    }
+
+    .ilkLinkler {
+        display: flex;
+    }
+
+</style>
+<body>
+    <nav>
+        <ul class="top-menu">
+            <div class="ilkLinkler">
+            <li><a href="@Url.Action("DoctorIndex","Doctor",new{area="Doctor"})">Anasayfa</a></li>
+
+            <li><a href="@Url.Action("NewAppointments","AppointManagement",new{area="Doctor"})">dasdas</a></li>
+            </div>
+            <div class="sonLinkler">
+            <li><a href="@Url.Action("SifreDegistir","Admin")">Şifre Değiştir</a></li>
+            <li><a href="@Url.Action("CikisYap","Admin")">Çıkış Yap</a></li>
+            </div>
+        </ul>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
